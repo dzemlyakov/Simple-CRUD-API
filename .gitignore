@@ -1,0 +1,9 @@
+test.js
+trash
+.DS_Store
+.sass-cache
+.tmp
+.rvmrc
+.trashes
+.node modules
+*~
