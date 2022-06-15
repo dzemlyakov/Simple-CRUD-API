@@ -5,5 +5,9 @@ trash
 .tmp
 .rvmrc
 .trashes
-.node modules
+node_modules/
+.node_modules
+public
+build
+.env
 *~
