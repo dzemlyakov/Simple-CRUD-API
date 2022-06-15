@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
+  
   "scripts": {
-    "dev": "ts-node index.ts",
-    "start": "ts-node-dev index.ts",
+    "dev": "nodemon ts-node index.ts",
+    "start": "ts-node-dev --rs index.ts",
     "build": "tsc"
   },
   "repository": {
