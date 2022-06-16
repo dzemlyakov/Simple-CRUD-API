@@ -15,10 +15,10 @@ export const findAll = () =>{
 }
 
 export const findById = (id:string) =>{
-    return new Promise((resolve, reject)=>{
-        const user = db.filter((user:IUser)=>user.id === id)
-        if(!user.length){
-            resolve(false)
+    return new Promise<any>((resolve, reject)=>{
+        const user = db.find((user:IUser)=>user.id === id)
+        if(user === undefined){
+            resolve(null)
         }else {
             resolve(user)
         }
@@ -34,7 +34,20 @@ export const create = (user:IUser) =>{
     })
 }
 
-
+export const update = (id:string, userData:IUser) =>{
+    return new Promise((resolve, reject)=>{
+        const indexOfUser = db.findIndex((user:IUser)=>user.id === id)
+        if(indexOfUser === -1){
+            resolve(false)
+        }else {
+            db[indexOfUser] = {id, ...userData}
+            console.log("🚀 ~ returnnewPromise ~ userData", userData)
+            
+            resolve(db[indexOfUser])
+        }
+        
+    })
+}
 
 
 

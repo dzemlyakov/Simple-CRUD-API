@@ -1,8 +1,13 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { create, findAll, findById } from "../models/modelUser";
+import { create, findAll, findById, update } from "../models/modelUser";
 import { getBodyData } from "../utils/utils";
 
-
+interface IUser {
+    id?:string,
+    name:string,
+    age: number,
+    hobbies: string[]|[]
+}
 
 export const getAllUsers = async (req:IncomingMessage, res:ServerResponse)=>{
     try {
@@ -34,16 +39,10 @@ export const getUserById = async (req:IncomingMessage, res:ServerResponse, id:st
 export const createUser = async (req:IncomingMessage, res:ServerResponse)=>{
     try {
         const body:string = await getBodyData(req)
-        console.log("🚀 ~ createUser ~ body", JSON.parse(body))
         
-
         const {name, age, hobbies} = JSON.parse(body)
-
-        const user = {
-            name, 
-            age, 
-            hobbies
-        }
+        const user = { name, age, hobbies }
+        
         const newUser = await create(user)
         
         res.writeHead(200,{"Content-Type": "application/json"})
@@ -55,10 +54,38 @@ export const createUser = async (req:IncomingMessage, res:ServerResponse)=>{
     }
 }
 
+export const updateUser = async (req:IncomingMessage, res:ServerResponse,id:string)=>{
+    try {
+        const user = await findById(id)
+
+        if (!user){
+            res.writeHead(404,{"Content-Type": "application/json"})
+            res.end(JSON.stringify({message: "User not found"}))
+        }else {
+            const body:string = await getBodyData(req)
+            const {name, age, hobbies} = JSON.parse(body)
+            
+            const newInfoAboutUser:IUser = {
+                name: name||user.name,
+                age: age || user.age,
+                hobbies: hobbies || user.hobbies
+            }
+           
+            const updatedUser = await update(id, newInfoAboutUser)
+            res.writeHead(200,{"Content-Type": "application/json"})
+            res.end(JSON.stringify(updatedUser))
+        }
+    } catch (err) {
+        console.log(err);
+        
+    }
+}
+
 
 
 // {
 //     "name": "Kir",
 //     "age": "35",
-//     "hobies": ["ree","efef","efefe"]
+//     "hobbies": ["ree","efef","efefe"]
 // }
+
