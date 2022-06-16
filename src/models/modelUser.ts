@@ -1,7 +1,8 @@
+import { v4 as uuidv4 } from "uuid";
 import db from "../data/db.json";
 
 interface IUser {
-    id:string,
+    id?:string,
     name:string,
     age: number,
     hobbies: string[]|[]
@@ -25,6 +26,13 @@ export const findById = (id:string) =>{
     })
 }
 
+export const create = (user:IUser) =>{
+    return new Promise((resolve, reject)=>{
+       const newUser = {id:uuidv4(), ...user}
+       db.push(newUser)
+       resolve(newUser)
+    })
+}
 
 
 
