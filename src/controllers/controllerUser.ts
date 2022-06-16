@@ -17,8 +17,14 @@ export const getAllUsers = async (req:IncomingMessage, res:ServerResponse)=>{
 export const getUserById = async (req:IncomingMessage, res:ServerResponse, id:string)=>{
     try {
         const user = await findById(id)
-        res.writeHead(200,{"Content-Type": "application/json"})
-        res.end(JSON.stringify(user))
+        if (!user){
+            res.writeHead(404,{"Content-Type": "application/json"})
+            res.end(JSON.stringify({message: " User not found"}))
+        }else{
+            res.writeHead(200,{"Content-Type": "application/json"})
+            res.end(JSON.stringify(user))
+        }
+       
     } catch (err) {
         console.log(err);
         

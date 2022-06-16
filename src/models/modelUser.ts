@@ -16,7 +16,12 @@ export const findAll = () =>{
 export const findById = (id:string) =>{
     return new Promise((resolve, reject)=>{
         const user = db.filter((user:IUser)=>user.id === id)
-        resolve(user)
+        if(!user.length){
+            resolve(false)
+        }else {
+            resolve(user)
+        }
+        
     })
 }
 
