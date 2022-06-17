@@ -42,8 +42,6 @@ export const update = (id:string, userData:IUser) =>{
             resolve(false)
         }else {
             db[indexOfUser] = {id, ...userData}
-            console.log("🚀 ~ returnnewPromise ~ userData", userData)
-            
             resolve(db[indexOfUser])
         }
         

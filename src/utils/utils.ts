@@ -1,4 +1,4 @@
-import { IncomingMessage } from "http"
+import { IncomingMessage, ServerResponse } from "http"
 
 export const getBodyData = (req:IncomingMessage) =>{
     return  new Promise<string>((resolve, reject) => {
@@ -14,4 +14,8 @@ export const getBodyData = (req:IncomingMessage) =>{
          reject(err)   
         }
     })
+}
+export const WriteOutput = (code:number, res:ServerResponse, message:any)=>{
+    res.writeHead(code,{"Content-Type": "application/json"})
+    res.end(JSON.stringify(message))
 }
