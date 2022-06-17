@@ -1,6 +1,6 @@
 import { createServer } from "http";
 import url  from "url";
-import { createUser, getAllUsers, getUserById, updateUser } from "./controllers/controllerUser";
+import { createUser, deleteUser, getAllUsers, getUserById, updateUser } from "./controllers/controllerUser";
 
 
 export const server = createServer((req, res)=>{
@@ -19,7 +19,11 @@ const id = urlParseArray[3]
     } else if(req.url === '/api/users' && req.method === 'POST') {
         createUser(req, res)
     }else if(urlFromRequest.match(/\/api\/users\/\w+/) && req.method === 'PUT'){ 
-         updateUser(req,res,id)    }
+         updateUser(req,res,id)    
+        }
+    else if(urlFromRequest.match(/\/api\/users\/\w+/) && req.method === 'DELETE'){ 
+            deleteUser(req,res,id)    
+           }
     else {
         res.writeHead(404,{"Content-Type": "application/json"})
         res.end(JSON.stringify({message: "Route not found"}))

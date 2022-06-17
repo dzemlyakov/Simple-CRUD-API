@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import db from "../data/db.json";
+import { db, filterDB } from "../data/db";
 
 interface IUser {
     id?:string,
@@ -7,6 +7,7 @@ interface IUser {
     age: number,
     hobbies: string[]|[]
 }
+
 
 export const findAll = () =>{
     return new Promise((resolve, reject)=>{
@@ -49,25 +50,11 @@ export const update = (id:string, userData:IUser) =>{
     })
 }
 
+export const remove = (id:string) =>{
+    return new Promise<void>((resolve, reject) => {
+        filterDB(id)
+        resolve()
+    })
+}
 
 
-
-
-
-
-
-// import { v4 as uuidv4 } from "uuid";
-
-// interface IUser {
-//     id:string,
-//     name:string,
-//     age: number,
-//     hobbies: string[]|[]
-// }
-// export const user:IUser = {
-//     id: uuidv4(),
-//     name: "ff",
-//     age: 23,
-//     hobbies: []
-
-// }

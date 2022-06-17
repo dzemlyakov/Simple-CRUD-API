@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { create, findAll, findById, update } from "../models/modelUser";
+import { create, findAll, findById, remove, update } from "../models/modelUser";
 import { getBodyData } from "../utils/utils";
 
 interface IUser {
@@ -36,6 +36,7 @@ export const getUserById = async (req:IncomingMessage, res:ServerResponse, id:st
         
     }
 }
+
 export const createUser = async (req:IncomingMessage, res:ServerResponse)=>{
     try {
         const body:string = await getBodyData(req)
@@ -81,7 +82,23 @@ export const updateUser = async (req:IncomingMessage, res:ServerResponse,id:stri
     }
 }
 
-
+export const deleteUser = async (req:IncomingMessage, res:ServerResponse, id:string)=>{
+    try {
+        const user = await findById(id)
+        if (!user){
+            res.writeHead(404,{"Content-Type": "application/json"})
+            res.end(JSON.stringify({message: " User not found"}))
+        }else{
+            await remove(id)
+            res.writeHead(200,{"Content-Type": "application/json"})
+            res.end(JSON.stringify({message: `User ${id} has been removed`}))
+        }
+       
+    } catch (err) {
+        console.log(err);
+        
+    }
+}
 
 // {
 //     "name": "Kir",

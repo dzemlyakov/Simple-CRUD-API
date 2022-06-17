@@ -1,4 +1,4 @@
-[
+export let db = [
      {
         "id": "1",
         "name": "Nick",
@@ -24,3 +24,9 @@
         "hobbies": []
     }
 ]
+
+
+export const filterDB = (id:string) =>{
+    db = db.filter((user)=>user.id !== id)
+    return db
+} 
