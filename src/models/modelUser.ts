@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
-import { db, filterDB } from "../data/db";
 import { isUser, isValidId } from "../utils/validation";
+import { db, filterDB } from "../data/db";
 
 interface IUser {
     id?:string,
@@ -8,7 +8,6 @@ interface IUser {
     age: number,
     hobbies: string[]|[]
 }
-
 
 export const findAll = () =>{
     return new Promise((resolve, reject)=>{

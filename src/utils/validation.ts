@@ -19,5 +19,7 @@ export const isUser = (user:IUser):boolean =>{
         return false
     }else if(!hobbies || !Array.isArray(hobbies)){
         return false
+    }else if(!hobbies.every(hobby=> typeof(hobby) === 'string')){
+        return false
     }else return true
 }
