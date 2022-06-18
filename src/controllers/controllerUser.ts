@@ -55,8 +55,29 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
         ErrorHandler(err, res)
   }
 };
+export const updateUser = async (req: IncomingMessage, res: ServerResponse, id:string) => {
+  try {
+    const user = await getUserFromBody(req);
+    
+    if(!user) {
+        writeOutput(400, res, EXTRA_FIELDS)
+    } else {
+        const updatedUser = await update(id, user);
+        console.log("🚀 ~ createUser ~ newUser", updatedUser)
+        if(updatedUser === 'wrongField'){
+          writeOutput(400, res, REQUIRED_FIELDS)
+      }else if(updatedUser === 'noUser'){
+          writeOutput(404, res, NOT_FOUND)
+      }else{
+          writeOutput(200, res, updatedUser);
+      }
+    }
+    } catch (err:any) {
+        ErrorHandler(err, res)
+  }
+};
 
-export const updateUser = async (req: IncomingMessage, res: ServerResponse, id: string ) => {
+export const updateUserField = async (req: IncomingMessage, res: ServerResponse, id: string ) => {
   try {
     const user = await findById(id);
     if (user === 'wrongId') {

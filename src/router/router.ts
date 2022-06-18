@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { createUser, deleteUser, getAllUsers, getUserById, updateUser } from "../controllers/controllerUser";
-import { NOT_FOUND, WRONG_URL } from "../errors/errors";
+import { createUser, deleteUser, getAllUsers, getUserById, updateUser, updateUserField } from "../controllers/controllerUser";
+import { WRONG_URL } from "../errors/errors";
 import { writeOutput } from "../utils/utils";
 
 
@@ -17,7 +17,9 @@ export const router = (req:IncomingMessage,res:ServerResponse) =>{
         get:  req.method === 'GET',
         post: req.method === 'POST',
         put: req.method === 'PUT',
-        delete: req.method === 'DELETE'
+        delete: req.method === 'DELETE',
+        patch: req.method === 'PATCH',
+
     }
         
     if(matchUrl && method.get) {
@@ -29,6 +31,8 @@ export const router = (req:IncomingMessage,res:ServerResponse) =>{
         createUser(req, res)
     } else if(matchUrlWithId && method.put){ 
         updateUser(req,res,id)    
+    }else if(matchUrlWithId && method.patch){ 
+        updateUserField(req,res,id)    
     } else if(matchUrlWithId && method.delete){ 
         deleteUser(req,res,id)    
     } else {
