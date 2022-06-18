@@ -1,4 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { ErrorHandler } from "../errors/errorHandler";
 import { EXTRA_FIELDS, INVALID_USER, NOT_FOUND, REQUIRED_FIELDS, WAS_REMOVED } from "../errors/errors";
 import { create, findAll, findById, remove, update } from "../models/modelUser";
 import { getBodyData, getUserFromBody, writeOutput } from "../utils/utils";
@@ -14,8 +15,8 @@ export const getAllUsers = async (req: IncomingMessage, res: ServerResponse) => 
   try {
     const users = await findAll();
     writeOutput(200, res, users);
-  } catch (err) {
-    console.log(err);
+  } catch (err:any) {
+    ErrorHandler(err, res)
   }
 };
 
@@ -29,8 +30,8 @@ export const getUserById = async (req: IncomingMessage, res: ServerResponse, id:
     } else {
       writeOutput(200, res, user);
     }
-  } catch (err) {
-    console.log(err);
+  } catch (err:any) {
+    ErrorHandler(err, res)
   }
 };
 
@@ -50,8 +51,8 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
         }
     }
   
-    } catch (err) {
-        console.log(err);
+    } catch (err:any) {
+        ErrorHandler(err, res)
   }
 };
 
@@ -83,8 +84,8 @@ export const updateUser = async (req: IncomingMessage, res: ServerResponse, id: 
             }
       }
     }
-  } catch (err) {
-    console.log(err);
+  } catch (err:any) {
+    ErrorHandler(err, res)
   }
 };
 
@@ -99,8 +100,8 @@ export const deleteUser = async (req: IncomingMessage, res: ServerResponse, id: 
             await remove(id);
             writeOutput(204, res, WAS_REMOVED);
     }
-  } catch (err) {
-    console.log(err);
+  } catch (err:any) {
+    ErrorHandler(err, res)
   }
 };
 

@@ -1,9 +1,13 @@
 import { createServer } from "http";
-import url  from "url";
+import { ErrorHandler } from "./errors/errorHandler";
 import { router } from "./router/router";
 
 
 export const server = createServer((req, res)=>{
-   router(req,res)
+  try {
+      router(req,res)
+  } catch (error:any) {
+   ErrorHandler( error, res)
+  }
 }) 
 

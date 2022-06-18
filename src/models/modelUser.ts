@@ -54,9 +54,7 @@ export const update = (id:string, userData:IUser) =>{
                 db[indexOfUser] = {id, ...userData}
                 resolve(db[indexOfUser])
             }
-        }
-        
-        
+        }   
     })
 }
 
