@@ -125,9 +125,3 @@ export const deleteUser = async (req: IncomingMessage, res: ServerResponse, id: 
     ErrorHandler(err, res)
   }
 };
-
-// {
-//     "name": "Kir",
-//     "age": "35",
-//     "hobbies": ["ree","efef","efefe"]
-// }
