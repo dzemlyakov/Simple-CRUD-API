@@ -1,6 +1,6 @@
 {
-    "ignore":["node_modules"],
-    "watch": ["./src/index.ts"],
-    "exec": ["npm start"],
+    "ignore":[".git", "node_modules/", "build/"],
+    "watch": ["./"],
+    "exec": ["npm run start"],
     "ext": "ts"
 }
