@@ -8,13 +8,56 @@ const testUser = {
     hobbies: ["testhobby1", "testhobby2"]
 }
 
+const testUser2 = {
+    name: "TestName2",
+    age: 4000,
+    hobbies: []
+}
+
 describe('Test scenario 1', () => {
-    
+    let userId:string 
     it('Get all users', async () => {
         const response = await request(server).get('/api/users/')
+       
         expect(response.statusCode).toEqual(200)
         expect(response.body).toEqual([])
     })
 
-    
+     it('Create new user', async () => {
+        const response = await request(server).post('/api/users/').set('Accept', 'application/json').send(JSON.stringify(testUser))
+        
+        userId = response.body.id
+        
+        expect(response.statusCode).toBe(201)
+        expect(response.body).toMatchObject(testUser)
+     })
+     
+     it('Get user by Id', async () => {
+        const response = await request(server).get(`/api/users/${userId}`)
+        
+        expect(response.statusCode).toBe(200)
+        expect(response.body).toMatchObject(testUser)
+     })
+
+     it('Update user by Id', async () => {
+        const response = await request(server).put(`/api/users/${userId}`).set('Accept', 'application/json').send(JSON.stringify(testUser2))
+        
+        expect(response.statusCode).toBe(200)
+        expect(response.body).toMatchObject(testUser2)
+     })
+
+     it('Delete user by Id', async () => {
+        const response = await request(server).delete(`/api/users/${userId}`)
+        
+        expect(response.statusCode).toBe(204)
+     })
+
+     it('Delete user by Id', async () => {
+        const response =  await request(server).get(`/api/users/${userId}`)
+        
+        expect(response.statusCode).toBe(404)
+     })
+     
 })
+
+
