@@ -20,6 +20,10 @@ npm run start:dev
 ``` 
 this command starting app with hot reload using nodemon. The server will run on the localhost:3000 by default.
 ```bash
+npm run start:multi 
+``` 
+this script starts multiple instances of app using Cluster API
+```bash
 npm run test 
 ``` 
 this command runs unit-tests 
