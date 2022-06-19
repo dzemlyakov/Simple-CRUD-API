@@ -22,7 +22,8 @@ const testUserWithWrongFileds = {
 };
 
 describe("Test scenario 2", () => {
-  // 1. Add new user into DB with incorrect fields – Expected: new user is not created, message with error
+ 
+   // 1. Add new user into DB with incorrect fields – Expected: new user is not created, message with error
   // 2. Add new user into DB with correct fields – Expected: new user is created, code 201
   // 3. Update info (PUT) about recently created user with incorrect fields – Expected: must not updated, message with error
   // 4. Update info (PUT) about recently created user with correct fields – Expected: must  updated, code 200
